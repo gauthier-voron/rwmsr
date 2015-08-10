@@ -1,3 +1,21 @@
+/*
+ * Copyright 2015 Gauthier Voron
+ * This file is part of rwmsr.
+ *
+ * Rwmsr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Rwmsr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with rwmsr. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <alloca.h>
 #include <dirent.h>
 #include <dlfcn.h>
@@ -77,7 +95,7 @@ static uint8_t check_linux(void)
 	return !strcmp(buffer, "Linux\n");
 }
 
-static uint8_t check_xen(void)
+static uint8_t check_xen_tokyo(void)
 {
 	pid_t xl;
 	int status;
@@ -105,8 +123,8 @@ const char *probe_system(void)
 	
 	if (check_linux())
 		system = "linux";
-	if (check_xen())
-		system = "xen";
+	if (check_xen_tokyo())
+		system = "xen-tokyo";
 
 	return system;
 }

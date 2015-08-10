@@ -1,3 +1,19 @@
+# Copyright 2015 Gauthier Voron
+# This file is part of rwmsr.
+#
+# Rwmsr is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Rwmsr is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with rwmsr. If not, see <http://www.gnu.org/licenses/>.
+
 SCRIPT  := script/
 DESTDIR ?= 
 
@@ -5,7 +21,7 @@ OBJ := obj/
 LIB := lib/
 BIN := bin/
 
-SYSTEMS := $(shell ./$(SCRIPT)filter-systems.sh xen linux)
+SYSTEMS := $(shell ./$(SCRIPT)filter-systems.sh linux xen-tokyo)
 TARGETS := $(BIN)rwmsr $(patsubst %, $(LIB)%.so, $(SYSTEMS))
 
 CC        := gcc
@@ -13,7 +29,7 @@ CCFLAGS   := -Wall -Wextra -pedantic -O2 -Iinclude/
 LDFLAGS   := -ldl -lrt
 CCSOFLAGS := $(CCFLAGS)
 LDSOFLAGS := 
-CCXNFLAGS := -Wall -Wextra -O2 -Iinclude/ -Ixen/
+CCXNFLAGS := -Wall -Wextra -O2 -Iinclude/ -Ixen-tokyo/
 LDXNFLAGS := -lxenctrl
 
 V ?= 1
@@ -44,7 +60,7 @@ $(LIB)linux.so: $(OBJ)linux.so | $(LIB)
 	$(call print,  LDSO    $@)
 	$(Q)$(CC) -shared $^ -o $@ $(LDSOFLAGS)
 
-$(LIB)xen.so: $(OBJ)xen.so | $(LIB)
+$(LIB)xen-tokyo.so: $(OBJ)xen-tokyo.so | $(LIB)
 	$(call print,  LDSO    $@)
 	$(Q)$(CC) -shared $^ -o $@ $(LDXNFLAGS)
 
@@ -57,7 +73,7 @@ $(OBJ)%.so: linux/%.c | $(OBJ)
 	$(call print,  CCSO    $@)
 	$(Q)$(CC) -fPIC $(CCSOFLAGS) -c $< -o $@
 
-$(OBJ)%.so: xen/%.c | $(OBJ)
+$(OBJ)%.so: xen-tokyo/%.c | $(OBJ)
 	$(call print,  CCSO    $@)
 	$(Q)$(CC) -fPIC $(CCXNFLAGS) -c $< -o $@
 
