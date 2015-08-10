@@ -20,7 +20,7 @@
 
 int8_t init(const char *sysname)
 {
-	if (strcmp(sysname, "xen"))
+	if (strcmp(sysname, "xen-tokyo"))
 		return -1;
 	if (getuid() != 0) {
 		if (verbose)

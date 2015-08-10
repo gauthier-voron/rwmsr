@@ -5,7 +5,7 @@ OBJ := obj/
 LIB := lib/
 BIN := bin/
 
-SYSTEMS := $(shell ./$(SCRIPT)filter-systems.sh xen linux)
+SYSTEMS := $(shell ./$(SCRIPT)filter-systems.sh linux xen-tokyo)
 TARGETS := $(BIN)rwmsr $(patsubst %, $(LIB)%.so, $(SYSTEMS))
 
 CC        := gcc
@@ -13,7 +13,7 @@ CCFLAGS   := -Wall -Wextra -pedantic -O2 -Iinclude/
 LDFLAGS   := -ldl -lrt
 CCSOFLAGS := $(CCFLAGS)
 LDSOFLAGS := 
-CCXNFLAGS := -Wall -Wextra -O2 -Iinclude/ -Ixen/
+CCXNFLAGS := -Wall -Wextra -O2 -Iinclude/ -Ixen-tokyo/
 LDXNFLAGS := -lxenctrl
 
 V ?= 1
@@ -44,7 +44,7 @@ $(LIB)linux.so: $(OBJ)linux.so | $(LIB)
 	$(call print,  LDSO    $@)
 	$(Q)$(CC) -shared $^ -o $@ $(LDSOFLAGS)
 
-$(LIB)xen.so: $(OBJ)xen.so | $(LIB)
+$(LIB)xen-tokyo.so: $(OBJ)xen-tokyo.so | $(LIB)
 	$(call print,  LDSO    $@)
 	$(Q)$(CC) -shared $^ -o $@ $(LDXNFLAGS)
 
@@ -57,7 +57,7 @@ $(OBJ)%.so: linux/%.c | $(OBJ)
 	$(call print,  CCSO    $@)
 	$(Q)$(CC) -fPIC $(CCSOFLAGS) -c $< -o $@
 
-$(OBJ)%.so: xen/%.c | $(OBJ)
+$(OBJ)%.so: xen-tokyo/%.c | $(OBJ)
 	$(call print,  CCSO    $@)
 	$(Q)$(CC) -fPIC $(CCXNFLAGS) -c $< -o $@
 

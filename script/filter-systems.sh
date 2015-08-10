@@ -2,7 +2,7 @@
 
 for system in "$@" ; do
     case "$system" in
-	xen)
+	xen-tokyo)
 	    [ -r "/usr/include/xenctrl.h" ] \
 		|| [ -r "/usr/include/xen/xenctrl.h" ] \
 		|| [ -r "/usr/local/include/xenctrl.h" ] \

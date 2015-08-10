@@ -77,7 +77,7 @@ static uint8_t check_linux(void)
 	return !strcmp(buffer, "Linux\n");
 }
 
-static uint8_t check_xen(void)
+static uint8_t check_xen_tokyo(void)
 {
 	pid_t xl;
 	int status;
@@ -105,8 +105,8 @@ const char *probe_system(void)
 	
 	if (check_linux())
 		system = "linux";
-	if (check_xen())
-		system = "xen";
+	if (check_xen_tokyo())
+		system = "xen-tokyo";
 
 	return system;
 }
