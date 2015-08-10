@@ -149,7 +149,7 @@ static void usage(void)
 
 static void version(void)
 {
-	printf("rwmsr 1.0\nGauthier Voron\ngauthier.voron@lip6.fr\n");
+	printf("rwmsr 1.0.0\nGauthier Voron\ngauthier.voron@lip6.fr\n");
 }
 
 
